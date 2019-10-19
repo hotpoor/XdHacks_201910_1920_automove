@@ -14,16 +14,22 @@ import tornado.websocket
 from tornado import gen
 from tornado.escape import json_encode, json_decode
 
+from setting import settings
+
 from controller.base import WebRequest
+from controller import xc_action
+
 
 class MainHandler(WebRequest):
     @gen.coroutine
     def get(self, app):
-        self.finis({"info":"ok"})
+        self.finish({"info":"ok"})
+
 
 tornado.httpclient.AsyncHTTPClient.configure("tornado.curl_httpclient.CurlAsyncHTTPClient")
 
 application = tornado.web.Application([
+    (r"/api/xc/action",xc_action.UsbSendAPIHandler),
     (r"/(.*)", MainHandler),
     ],**settings)
 
