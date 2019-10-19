@@ -46,6 +46,7 @@ background-color: rgba(0,0,0,0.1);
 <div class="like_weixin_audio">摁住语音说话</div>
 <button class="add_control_btn">添加控制按钮</button>
 <button class="remove_control_btn">移除控制按钮</button>
+<input type="" name="" id="CMDXC" value="" placeholder="主控制填写：xialiwei">
 <div class="xdhacks_area">
 <div id="div_device" class="panel panel-default">
 <div class="select">
@@ -311,14 +312,14 @@ $("body").on("click",".open_control_btn",function(){
 dom=$(this)
 dom_p  = dom.parent()
 dom_p.append('<div class="control_btn_area">'+
-'<button>前</button>'+
-'<button>后</button>'+
-'<button>左</button>'+
-'<button>右</button>'+
-'<button></button>'+
+'<button class="xc_action" style="position:absolute;left:30px;top:0px;" data-value="50" data-action="xc_go">前</button>'+
+'<button class="xc_action" style="position:absolute;left:30px;top:30px;" data-value="50" data-action="xc_back">后</button>'+
+'<button class="xc_action" style="position:absolute;left:0px;top:15px;" data-value="30" data-action="xc_left">左</button>'+
+'<button class="xc_action" style="position:absolute;left:60px;top:15px;" data-value="30" data-action="xc_right">右</button>'+
+'<button class="xc_action" style="margin-left:90px;" data-value="0" data-action="xc_cancel_alert_and_ready">消除警报并车辆准备</button>'+
+'<button class="xc_action" style="margin-left:10px;" data-value="0" data-action="xc_stop_force">急停</button>'+
   '</div>')
 })
-
 </script>
 
 
