@@ -897,6 +897,36 @@ function addMessage (msg) {
             radioEl.play()
         }
         return
+    } else if (msgType === 'CMDXC'){
+        if ($("#CMDXC").val()!="xialiwei"){
+            console.log("========")
+            console.log("CMDXC")
+            console.log("========")
+            console.log(msg[1])
+            console.log("========")
+            return
+        }
+        xc_value = msg[1].value
+        xc_action = msg[1].action
+
+        console.log("========")
+        console.log("http://127.0.0.1:8088/api/xc/action")
+        console.log("========")
+        $.ajax({
+            url: 'http://127.0.0.1:8088/api/xc/action',
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                "value":xc_value,
+                "action":xc_action
+            },
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
     }else{
         return
     }
@@ -4773,3 +4803,24 @@ function send_audio_1(blob){
         }
         reader.readAsDataURL(blob)
 }
+
+$("body").on("click",".xc_action",function(){
+    dom = $(this)
+    value = dom.attr("data-value")
+    action = dom.attr("data-action")
+    msg = ["CMDXC", {
+        "content": "[\""+value+"\",\""+action+"\"]",
+        "nickname": "xialiwei",
+        "headimgurl": USER_HEADIMGURL,
+        "tel": "15201950688",
+        "user_id": USER_ID,
+        "sequence": "",
+        "comment_id": "",
+        "value":value,
+        "action":action,
+    }, targetRoomId]
+    console.log(msg)
+    ws.send(JSON.stringify(msg))
+})
+
+
