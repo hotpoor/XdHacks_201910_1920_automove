@@ -86,6 +86,10 @@ class UsbSendAPIHandler(WebRequest):
                 action("S_READY",1,1),
                 action("J_STOP",0,0),
             ]
+        elif action == "xc_stop_force":#强制停止
+            a_list =[
+                action("SF",0,0)
+            ]
         self.finish({"info":"ok","a_list":a_list})
 
         try:
@@ -151,7 +155,6 @@ class ActionMessageAPIHandler(WebRequest):
         response = yield http_client.fetch(request)
         print(response.body)
         print("===========")
-
         self.finish({"info":"ok"})
 
 
