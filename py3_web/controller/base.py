@@ -5,7 +5,6 @@ import tornado.web
 import tornado.websocket
 import tornado.locale
 
-
 class BaseHandler(object):
     def get_current_user(self):
         user_json = self.get_secure_cookie("user")
@@ -21,7 +20,6 @@ class BaseHandler(object):
 
     #def get_user_locale(self):
     #    return tornado.locale.get("zh_CN")
-
 
 class WebRequest(BaseHandler, tornado.web.RequestHandler):
     def get_error_html(self, status_code, **kwargs):
