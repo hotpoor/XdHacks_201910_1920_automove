@@ -34,6 +34,13 @@ position:absolute;
 right:0px;
 top:0px;
 }
+.control_btn_area_canvas{
+ position:absolute;
+left:0px;
+top:0px;
+width: 384px;
+height: 216px;
+}
 .control_btn_area{
  position:absolute;
 left:0px;
@@ -41,6 +48,19 @@ top:0px;
 width: 384px;
 height: 216px;
 background-color: rgba(0,0,0,0.1);
+background-image: url(http://image.hotpoor.org/2dd2c53e7c654c66b398e574848d4c34_c995b39aaf85e496256d2eca49b36b58?imageView2);
+background-size: cover;
+}
+
+.control_btn_area_action{
+  background-color: rgba(0,255,255,0.3);
+  position: absolute;
+  left: 80px;
+  width: 224px;
+  height: 136px;
+  top: 80px;
+  z-index: 999;
+  cursor: move;
 }
 </style>
 <div class="like_weixin_audio">摁住语音说话</div>
@@ -299,6 +319,7 @@ $("body").on("click",".add_control_btn",function(){
 $(".control_here").remove()
 $(".open_control_btn").remove()
 $(".control_btn_area").remove()
+$(".control_btn_area_canvas").remove()
 $("div#video").children().css("position","relative")
 $("div#video").children().append("<button class='open_control_btn'>打开控制版</button>")
 })
@@ -311,7 +332,7 @@ $(".open_control_btn").remove()
 $("body").on("click",".open_control_btn",function(){
 dom=$(this)
 dom_p  = dom.parent()
-dom_p.append('<div class="control_btn_area">'+
+dom_p.append('<canvas class="control_btn_area_canvas"></canvas><div class="control_btn_area">'+
 '<button class="xc_action" style="position:absolute;left:30px;top:0px;" data-value="50" data-action="xc_go">前</button>'+
 '<button class="xc_action" style="position:absolute;left:30px;top:30px;" data-value="0" data-action="xc_center">中</button>'+
 '<button class="xc_action" style="position:absolute;left:30px;top:60px;" data-value="50" data-action="xc_back">后</button>'+
@@ -319,6 +340,7 @@ dom_p.append('<div class="control_btn_area">'+
 '<button class="xc_action" style="position:absolute;left:60px;top:15px;" data-value="30" data-action="xc_right">右</button>'+
 '<button class="xc_action" style="margin-left:90px;" data-value="0" data-action="xc_cancel_alert_and_ready">消除警报并车辆准备</button>'+
 '<button class="xc_action" style="margin-left:10px;" data-value="0" data-action="xc_stop_force">急停</button>'+
+'<div class="control_btn_area_action"></div>'+
   '</div>')
 })
 </script>

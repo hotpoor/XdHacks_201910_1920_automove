@@ -685,7 +685,7 @@ function addMessage (msg) {
         if (content_type === 'CMDXC'){
             a = content_values.split("&")[0].split("=")[1]
             $(".flag_cmdxc").remove()
-            $(".control_btn_area").append('<div class="flag_cmdxc" style="background-image:url(http://image.hotpoor.org/2dd2c53e7c654c66b398e574848d4c34_68baa957bbccb1791ebd184e06e3117d?imageView2);background-size:cover;width:20px;height:50px;position:absolute;top:100px;left:182px;transform:rotate('+(parseInt(a)-50)/100.0*90+'deg)"></div>')
+            $(".control_btn_area").append('<div class="flag_cmdxc" style="background-image:url(http://image.hotpoor.org/2dd2c53e7c654c66b398e574848d4c34_8277c34a26e41a0f9b68f4ff97b17c71?imageView2);background-size:cover;width:20px;height:50px;position:absolute;z-index:998;top:100px;left:182px;transform:rotate('+(parseInt(a)-50)/100.0*90+'deg)"></div>')
             return
         }
         if (content_type === 'CMDXCACTION'){
@@ -4849,5 +4849,57 @@ $("body").on("click",".xc_action",function(){
     console.log(msg)
     ws.send(JSON.stringify(msg))
 })
+$("body").on("click",".control_btn_area_action",function(e){
+    console.log(e);
+    pointx = e.offsetX
+    pointy = e.offsetY
+
+    if ((pointx-112)>=0){
+        action = "xc_right"
+        value = parseInt((pointx-112)/112.0*30)
+    }else{
+        action = "xc_left"
+        value = parseInt((112-pointx)/112.0*30)
+    }
+    
+    msg = ["CMDXC", {
+        "content": "[\""+value+"\",\""+action+"\"]",
+        "nickname": "xialiwei",
+        "headimgurl": USER_HEADIMGURL,
+        "tel": "15201950688",
+        "user_id": USER_ID,
+        "sequence": "",
+        "comment_id": "",
+        "value":value,
+        "action":action,
+    }, targetRoomId]
+    console.log(msg)
+    ws.send(JSON.stringify(msg))
+
+    value = parseInt((126 - pointy)/126.0*100)
+    action = "xc_go"
+    msg = ["CMDXC", {
+        "content": "[\""+value+"\",\""+action+"\"]",
+        "nickname": "xialiwei",
+        "headimgurl": USER_HEADIMGURL,
+        "tel": "15201950688",
+        "user_id": USER_ID,
+        "sequence": "",
+        "comment_id": "",
+        "value":value,
+        "action":action,
+    }, targetRoomId]
+    console.log(msg)
+    setTimeout(function(){
+        ws.send(JSON.stringify(msg))
+    },100)
+    
+
+});
+
+canvas_point = function (){
+    canvas_point = $(".control_btn_area_canvas")[0]    
+}
+
 
 
