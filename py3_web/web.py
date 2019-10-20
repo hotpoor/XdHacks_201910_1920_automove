@@ -10,6 +10,7 @@ import tornado.options
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
+import time
 
 from tornado import gen
 from tornado.escape import json_encode, json_decode
@@ -103,7 +104,7 @@ class UsbSendAPIHandler(WebRequest):
         try:
             #端口，GNU / Linux上的/ dev / ttyUSB0 等 或 Windows上的 COM3 等
             portx_now = "tty.wchusbserial14120"
-            portx_now = "tty.wchusbserial1420"
+            portx_now = "tty.wchusbserial141120"
             portx="/dev/%s" % portx_now
             #波特率，标准值之一：50,75,110,134,150,200,300,600,1200,1800,2400,4800,9600,19200,38400,57600,115200
             bps=115200
