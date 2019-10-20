@@ -10,6 +10,7 @@ import tornado.options
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
+import time
 
 from tornado import gen
 from tornado.escape import json_encode, json_decode
@@ -46,7 +47,7 @@ def action(action,d1,d2):
         a_now = [0x23,0x53,0x00,0x00,0x0A]
     elif action == "SF":#强制停止
         a_now = [0x23,0x53,0x00,0x01,0x0A]
-    elif action == "O":#强制停止
+    elif action == "O":
         a_now = [0x23,0x4f,0x01,0x00,0x0A]
     return a_now
 
@@ -58,16 +59,19 @@ class UsbSendAPIHandler(WebRequest):
     @tornado.gen.coroutine
     def post(self):
         self.set_header("Access-Control-Allow-Origin", "*")
-        value_now = self.get_argument("value",None)
+        value_now = self.get_argument("value","0")
         action_now = self.get_argument("action",None)
-        if not(value_now and action_now):
+        if not(action_now):
             return
         value_now = int(value_now)
+        print(action_now)
         a_list = []
         if action_now == "xc_go":
             # action("D",-100,200),
             a_list =[
                 action("D",50,value_now),
+                action("NO",0,0),
+                action("NO",0,0),
                 action("NO",0,0),
                 action("S",0,0),
             ]
@@ -77,7 +81,11 @@ class UsbSendAPIHandler(WebRequest):
             ]
         elif action_now == "xc_back":
             a_list =[
-                action("D",-50,value_now)
+                action("D",-50,value_now),
+                action("NO",0,0),
+                action("NO",0,0),
+                action("NO",0,0),
+                action("S",0,0),
             ]
         elif action_now == "xc_left":
             a_list =[
@@ -94,11 +102,12 @@ class UsbSendAPIHandler(WebRequest):
                 action("S_READY",1,1),
                 action("J_STOP",0,0),
             ]
-        elif action == "xc_stop_force":#强制停止
+        elif action_now == "xc_stop_force":#强制停止
             a_list =[
                 action("SF",0,0)
             ]
-        elif action == "xc_open":#强制停止
+            print("强制停止")
+        elif action_now == "xc_open":#强制停止
             a_list =[
                 action("O",0,0)
             ]
@@ -107,7 +116,7 @@ class UsbSendAPIHandler(WebRequest):
         try:
             #端口，GNU / Linux上的/ dev / ttyUSB0 等 或 Windows上的 COM3 等
             portx_now = "tty.wchusbserial14120"
-            portx_now = "tty.wchusbserial1420"
+            portx_now = "tty.wchusbserial141120"
             portx="/dev/%s" % portx_now
             #波特率，标准值之一：50,75,110,134,150,200,300,600,1200,1800,2400,4800,9600,19200,38400,57600,115200
             bps=115200

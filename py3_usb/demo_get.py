@@ -23,7 +23,7 @@ def read_action(str_a):
 try:
     #端口，GNU / Linux上的/ dev / ttyUSB0 等 或 Windows上的 COM3 等
     portx_now = "tty.wchusbserial14120"
-    portx_now = "tty.wchusbserial1420"
+    portx_now = "tty.wchusbserial141120"
     portx="/dev/%s" % portx_now
     #波特率，标准值之一：50,75,110,134,150,200,300,600,1200,1800,2400,4800,9600,19200,38400,57600,115200
     bps=115200
@@ -40,7 +40,7 @@ try:
             else:
                 print("收到数据：",stra)
                 print("收到数据HEX：",stra.hex())
-                if stra.hex().startWith("235701"):
+                if len(stra.hex().split("235701"))>1:
                     a = stra.hex()
                     print("收到警告:需要发送 23 57 00 00 0A 解除")
                     a="235701300a"
