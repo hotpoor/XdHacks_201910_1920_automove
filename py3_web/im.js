@@ -682,6 +682,33 @@ function addMessage (msg) {
     // 评论 COMMENT
     if (msgType === 'COMMENT') {
         content_values = content.split(content_type+"//")[1]
+        if (content_type === 'CMDXC'){
+            a = content_values.split("&")[0].split("=")[1]
+            $(".flag_cmdxc").remove()
+            $(".control_btn_area").append('<div class="flag_cmdxc" style="background-image:url(http://image.hotpoor.org/2dd2c53e7c654c66b398e574848d4c34_68baa957bbccb1791ebd184e06e3117d?imageView2);background-size:cover;width:20px;height:50px;position:absolute;top:100px;left:182px;transform:rotate('+(parseInt(a)-50)/100.0*90+'deg)"></div>')
+            return
+        }
+        if (content_type === 'CMDXCACTION'){
+            if ($("#CMDXC").val()!="xialiwei"){
+                return
+            }
+            $.ajax({
+                url: 'http://127.0.0.1:8088/api/xc/action',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    "value":"1",
+                    "action":"xc_open"
+                },
+                success: function (data) {
+                    console.log(data);
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            })
+            return
+        }
         if (content_type === 'HRELOAD'){
             window.reload()
             return

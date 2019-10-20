@@ -46,6 +46,8 @@ def action(action,d1,d2):
         a_now = [0x23,0x53,0x00,0x00,0x0A]
     elif action == "SF":#强制停止
         a_now = [0x23,0x53,0x00,0x01,0x0A]
+    elif action == "O":#强制停止
+        a_now = [0x23,0x4f,0x01,0x00,0x0A]
     return a_now
 
 
@@ -89,6 +91,10 @@ class UsbSendAPIHandler(WebRequest):
         elif action == "xc_stop_force":#强制停止
             a_list =[
                 action("SF",0,0)
+            ]
+        elif action == "xc_open":#强制停止
+            a_list =[
+                action("O",0,0)
             ]
         self.finish({"info":"ok","a_list":a_list})
 
