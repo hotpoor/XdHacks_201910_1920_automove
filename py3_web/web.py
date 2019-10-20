@@ -71,17 +71,21 @@ class UsbSendAPIHandler(WebRequest):
                 action("NO",0,0),
                 action("S",0,0),
             ]
+        elif action_now == "xc_center":
+            a_list =[
+                action("T",1,value_now)
+            ]
         elif action_now == "xc_back":
             a_list =[
                 action("D",-50,value_now)
             ]
         elif action_now == "xc_left":
             a_list =[
-                action("T",-1,30)
+                action("T",-1,value_now)
             ]
         elif action_now == "xc_right":
             a_list =[
-                action("T",1,30)
+                action("T",1,value_now)
             ]
         elif action_now == "xc_cancel_alert_and_ready":
             #消除警报 并车辆准备
