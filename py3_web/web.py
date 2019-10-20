@@ -67,7 +67,9 @@ class UsbSendAPIHandler(WebRequest):
         if action_now == "xc_go":
             # action("D",-100,200),
             a_list =[
-                action("D",50,value_now)
+                action("D",50,value_now),
+                action("NO",0,0),
+                action("S",0,0),
             ]
         elif action_now == "xc_back":
             a_list =[
